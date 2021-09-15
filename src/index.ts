@@ -8,27 +8,27 @@
 
 import { randomFillSync } from "crypto";
 
-export { scru160, scru160V };
-
-/**
- * Generates a new SCRU-160 ID encoded in the hexadecimal format.
- *
- * @returns 40-character hexadecimal string (`/^[0-9a-f]{40}$/`).
- */
-const scru160 = (): string => {
-  return generateQuad()
-    .map((x) => ("000000000" + x.toString(16)).slice(-10))
-    .join("");
-};
+export { scru160, scru160f };
 
 /**
  * Generates a new SCRU-160 ID encoded in the base32hex format.
  *
  * @returns 32-character base32hexupper string (`/^[0-9A-V]{32}$/`).
  */
-const scru160V = (): string => {
+const scru160 = (): string => {
   return generateQuad()
     .map((x) => ("0000000" + x.toString(32).toUpperCase()).slice(-8))
+    .join("");
+};
+
+/**
+ * Generates a new SCRU-160 ID encoded in the hexadecimal format.
+ *
+ * @returns 40-character hexadecimal string (`/^[0-9a-f]{40}$/`).
+ */
+const scru160f = (): string => {
+  return generateQuad()
+    .map((x) => ("000000000" + x.toString(16)).slice(-10))
     .join("");
 };
 

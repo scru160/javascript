@@ -1,23 +1,23 @@
-import { scru160V as generate } from "scru160";
+import { scru160f as generate } from "scru160";
 export const assert = (expression, message = "") => {
   if (!expression) {
     throw new Error("Assertion failed" + (message ? ": " + message : ""));
   }
 };
 
-describe("scru160V()", function () {
+describe("scru160f()", function () {
   const samples = [];
   for (let i = 0; i < 100_000; i++) {
     samples[i] = generate();
   }
 
-  it("generates 32-character base32hexupper string", function () {
+  it("generates 40-character hexadecimal string", function () {
     samples.forEach((e) => assert(typeof e === "string"));
-    const re = /^[0-9A-V]{32}$/;
-    samples.forEach((e) => assert(re.test(e)));
+    const re = /^[0-9a-f]{40}$/;
+    assert(samples.every((e) => re.test(e)));
   });
 
-  it("generates unique identifier", function () {
+  it("generates 100k identifiers without collision", function () {
     assert(new Set(samples).size === samples.length);
   });
 
@@ -29,26 +29,24 @@ describe("scru160V()", function () {
   });
 
   it("encodes up-to-date unix timestamp", function () {
-    const re = /^([0-9A-V]{9})([0-9A-V])/;
+    const re = /^[0-9a-f]{12}/;
     for (let i = 0; i < 10_000; i++) {
       const now = Date.now();
       const m = re.exec(generate());
-      const ts = parseInt(m[1], 32) * 8 + (parseInt(m[2], 32) >> 2);
+      const ts = parseInt(m[0], 16);
       assert(Math.abs(now - ts) < 16);
     }
   });
 
   it("encodes sortable timestamp and counter", function () {
-    const re = /^([0-9A-V]{9})([0-9A-V])([0-9A-V]{3})/;
+    const re = /^([0-9a-f]{12})([0-9a-f]{4})/;
     const m = re.exec(samples[0]);
-    let prevTs = parseInt(m[1], 32) * 8 + (parseInt(m[2], 32) >> 2);
-    let prevCnt =
-      0xffff & ((parseInt(m[2], 32) << 14) | (parseInt(m[3], 32) >> 1));
+    let prevTs = parseInt(m[1], 16);
+    let prevCnt = parseInt(m[2], 16);
     for (let i = 1; i < samples.length; i++) {
       const m = re.exec(samples[i]);
-      const curTs = parseInt(m[1], 32) * 8 + (parseInt(m[2], 32) >> 2);
-      const curCnt =
-        0xffff & ((parseInt(m[2], 32) << 14) | (parseInt(m[3], 32) >> 1));
+      const curTs = parseInt(m[1], 16);
+      const curCnt = parseInt(m[2], 16);
       assert(prevTs < curTs || (prevTs === curTs && prevCnt < curCnt));
       prevTs = curTs;
       prevCnt = curCnt;
@@ -59,12 +57,12 @@ describe("scru160V()", function () {
     // count '1' in each bit
     const bins = new Array(160).fill(0);
     for (const e of samples) {
-      for (let i = 0; i < 8; i++) {
-        const n = parseInt(e.substring(4 * i, 4 * i + 4), 32);
-        for (let j = 0; j < 20; j++) {
-          const mask = 0x80000 >>> j;
+      for (let i = 0; i < 10; i++) {
+        const n = parseInt(e.substring(4 * i, 4 * i + 4), 16);
+        for (let j = 0; j < 16; j++) {
+          const mask = 0x8000 >>> j;
           if (n & mask) {
-            bins[20 * i + j]++;
+            bins[16 * i + j]++;
           }
         }
       }
