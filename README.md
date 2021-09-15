@@ -6,10 +6,9 @@ inspired by [ULID] and [KSUID] and has the following features:
 
 - 160-bit length
 - Sortable by generation time (in binary and in text)
-- At least 32,767 unique, time-ordered IDs per millisecond
+- Two case-insensitive encodings: 32-character base32hex and 40-character hex
+- More than 32,768 unique, time-ordered but unpredictable IDs per millisecond
 - Nearly 111-bit randomness for collision resistance
-- 32-character base32hex encoding and 40-character hex encoding
-- Case insensitive
 
 ```javascript
 import { scru160, scru160f } from "scru160";
@@ -52,8 +51,6 @@ Cryptographically secure random number generators are employed if possible.
 The _base32hex_ encoding as defined in [RFC 4648] is used by default to produce
 a 32-character textual representation consisting of `[0-9A-V]`.
 
-[rfc 4648]: https://datatracker.ietf.org/doc/html/rfc4648
-
 ```javascript
 scru160(); // e.g. "05TUIM8J8SU9O6P30I56PP49PI0RGNPM"
 ```
@@ -68,7 +65,25 @@ scru160f(); // e.g. "017be95b2d6042db903a19a0974182ec7445188a"
 The base32hex representations and hex representations cannot be mixed when
 SCRU-160 IDs need to be lexicographically sortable.
 
+[rfc 4648]: https://datatracker.ietf.org/doc/html/rfc4648
+
+## License
+
+Copyright 2021 LiosK
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
 ## See Also
 
+- [npm package](https://www.npmjs.com/package/scru160)
 - [API Documentation](https://scru160.github.io/javascript/docs/)
 - [Run tests on your browser](https://scru160.github.io/javascript/test/)

@@ -8,10 +8,9 @@ inspired by <a href="https://github.com/ulid/spec">ULID</a> and <a href="https:/
 <ul>
 <li>160-bit length</li>
 <li>Sortable by generation time (in binary and in text)</li>
-<li>At least 32,767 unique, time-ordered IDs per millisecond</li>
+<li>Two case-insensitive encodings: 32-character base32hex and 40-character hex</li>
+<li>More than 32,768 unique, time-ordered but unpredictable IDs per millisecond</li>
 <li>Nearly 111-bit randomness for collision resistance</li>
-<li>32-character base32hex encoding and 40-character hex encoding</li>
-<li>Case insensitive</li>
 </ul>
 <pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">scru160</span><span class="hl-1">, </span><span class="hl-2">scru160f</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;scru160&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">scru160</span><span class="hl-1">()); </span><span class="hl-5">// e.g. &quot;05TTUP1HNCPNH30VEK64KDQT9BSNU4C4&quot;</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">scru160</span><span class="hl-1">()); </span><span class="hl-5">// e.g. &quot;05TTUP1HNCPNIB63R8IN5V2L3VFGNFET&quot;</span><br/><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">scru160f</span><span class="hl-1">()); </span><span class="hl-5">// e.g. &quot;017bdf6431bb33750751eb63beb3c3f8c5969d86&quot;</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">scru160f</span><span class="hl-1">()); </span><span class="hl-5">// e.g. &quot;017bdf6431bb337662412e6a5758890735c33c2b&quot;</span>
 </code></pre>
@@ -75,10 +74,24 @@ string that looks like the commonly seen SHA-1 hashes.</p>
 <p>The base32hex representations and hex representations cannot be mixed when
 SCRU-160 IDs need to be lexicographically sortable.</p>
 
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p>Copyright 2021 LiosK</p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.</p>
+
 <a href="#see-also" id="see-also" style="color: inherit; text-decoration: none;">
   <h2>See Also</h2>
 </a>
 <ul>
+<li><a href="https://www.npmjs.com/package/scru160">npm package</a></li>
 <li><a href="https://scru160.github.io/javascript/docs/">API Documentation</a></li>
 <li><a href="https://scru160.github.io/javascript/test/">Run tests on your browser</a></li>
 </ul>
