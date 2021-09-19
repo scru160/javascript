@@ -38,7 +38,7 @@ describe("scru160f()", function () {
     }
   });
 
-  it("encodes sortable timestamp and counter", function () {
+  it("encodes unique sortable pair of timestamp and counter", function () {
     const re = /^([0-9a-f]{12})([0-9a-f]{4})/;
     const m = re.exec(samples[0]);
     let prevTs = parseInt(m[1], 16);
@@ -58,12 +58,10 @@ describe("scru160f()", function () {
     const bins = new Array(160).fill(0);
     for (const e of samples) {
       for (let i = 0; i < 10; i++) {
-        const n = parseInt(e.substring(4 * i, 4 * i + 4), 16);
+        let n = parseInt(e.substring(4 * i, 4 * i + 4), 16);
         for (let j = 0; j < 16; j++) {
-          const mask = 0x8000 >>> j;
-          if (n & mask) {
-            bins[16 * i + j]++;
-          }
+          bins[16 * i + 15 - j] += n & 1;
+          n >>>= 1;
         }
       }
     }
@@ -74,7 +72,7 @@ describe("scru160f()", function () {
     const margin = 4.417173 * Math.sqrt((0.5 * 0.5) / n);
     for (let i = 64; i < bins.length; i++) {
       const p = bins[i] / n;
-      assert(Math.abs(p - 0.5) < margin, `random bit ${i}: ${p}`);
+      assert(Math.abs(p - 0.5) < margin, `Msb ${i}: ${p}`);
     }
   });
 });
