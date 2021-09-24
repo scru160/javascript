@@ -1,5 +1,5 @@
 /**
- * SCRU-160: Sortable, Clock and Random number-based Unique identifier
+ * SCRU160: Sortable, Clock and Random number-based Unique identifier
  *
  * @license Apache-2.0
  * @copyright 2021 LiosK
@@ -10,10 +10,10 @@ import { randomFillSync } from "crypto";
 
 export { scru160, scru160f };
 
-/** Represents SCRU-160 ID generator. */
+/** Represents SCRU160 ID generator. */
 class Generator {
   /**
-   * Generates a new SCRU-160 ID encoded in the base32hex format.
+   * Generates a new SCRU160 ID encoded in the base32hex format.
    *
    * @returns 32-character base32hexupper string (`/^[0-9A-V]{32}$/`).
    */
@@ -24,7 +24,7 @@ class Generator {
   }
 
   /**
-   * Generates a new SCRU-160 ID encoded in the hexadecimal format.
+   * Generates a new SCRU160 ID encoded in the hexadecimal format.
    *
    * @returns 40-character hexadecimal string (`/^[0-9a-f]{40}$/`).
    */
@@ -35,7 +35,7 @@ class Generator {
   }
 
   /**
-   * Generates a byte sequence that represents a new SCRU-160 ID.
+   * Generates a byte sequence that represents a new SCRU160 ID.
    *
    * @returns 20-byte sequence.
    */
@@ -53,7 +53,7 @@ class Generator {
     );
   }
 
-  /** Generates a new SCRU-160 ID in the form of four 40-bit integer values. */
+  /** Generates a new SCRU160 ID in the form of four 40-bit integer values. */
   private generateQuad() {
     const bs = this.generate();
     const result: [number, number, number, number] = [0, 0, 0, 0];
@@ -111,7 +111,7 @@ class Generator {
     return buffer;
   };
 
-  /** Create a new SCRU-160 generator. */
+  /** Create a new SCRU160 generator. */
   constructor() {
     // detect CSPRNG
     if (typeof window !== "undefined" && window.crypto) {
@@ -133,14 +133,14 @@ class Generator {
 const defaultGenerator = new Generator();
 
 /**
- * Generates a new SCRU-160 ID encoded in the base32hex format.
+ * Generates a new SCRU160 ID encoded in the base32hex format.
  *
  * @returns 32-character base32hexupper string (`/^[0-9A-V]{32}$/`).
  */
 const scru160 = (): string => defaultGenerator.scru160();
 
 /**
- * Generates a new SCRU-160 ID encoded in the hexadecimal format.
+ * Generates a new SCRU160 ID encoded in the hexadecimal format.
  *
  * @returns 40-character hexadecimal string (`/^[0-9a-f]{40}$/`).
  */

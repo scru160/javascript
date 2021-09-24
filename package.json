@@ -1,7 +1,7 @@
 {
   "name": "scru160",
-  "version": "0.2.3",
-  "description": "SCRU-160: Sortable, Clock and Random number-based Unique identifier",
+  "version": "0.2.4",
+  "description": "SCRU160: Sortable, Clock and Random number-based Unique identifier",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/scru160/javascript#readme",
   "devDependencies": {
-    "@types/node": "^16.9.2",
+    "@types/node": "^16.9.6",
     "mocha": "^9.1.1",
     "typedoc": "^0.22.4",
     "typescript": "^4.4.3",
